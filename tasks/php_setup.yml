@@ -1,0 +1,54 @@
+---
+# Add PHP repo
+- name: Install software-properties-common
+  apt: 
+   name: software-properties-common
+   state: present
+- name: Add PHP repository
+  apt_repository:
+    repo: ppa:ondrej/php
+# Update repositories
+- name: Update repositories cache
+  apt: 
+    update_cache: yes
+
+# Install PHP
+- name: Install PHP {{php.version}}
+  apt: 
+    name: "php{{php.version}}"
+    state: present
+- name: Install PHP FPM
+  apt: 
+    name: "php{{php.version}}-fpm"
+    state: present
+- name: Install additional PHP modules # Zou probably want to add some modules
+  apt: 
+    name: "{{item}}"
+    state: present
+  loop: 
+    - "php{{php.version}}-mysql"
+    - "php{{php.version}}-common"
+    - "php{{php.version}}-xml"
+    - "php{{php.version}}-zip"
+    - "php{{php.version}}-gd"
+    - "php{{php.version}}-mbstring"
+    - "php{{php.version}}-curl"
+    - "php{{php.version}}-mcrypt"
+    - "php{{php.version}}-phpdbg"
+    - "php{{php.version}}-bz2"
+
+# Install composer
+- name: Download Composer installer
+  get_url:
+    url: https://getcomposer.org/installer
+    dest: /tmp/composer-setup.php
+- name: Install Composer
+  shell: php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+- name: Restart and enable PHP-FPM service
+  service: 
+    name: "{{item}}"
+    state: restarted 
+    enabled: yes
+  loop: 
+    - "php{{php.version}}-fpm"

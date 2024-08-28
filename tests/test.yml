@@ -1,0 +1,5 @@
+---
+- hosts: local_vm
+  remote_user: root
+  roles:
+    - role: ../../php-setup-role

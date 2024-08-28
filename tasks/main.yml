@@ -1,0 +1,8 @@
+---
+- name: Setup php on a server
+  import_tasks: php_setup.yml
+  when: ansible_facts['distribution'] | lower == 'ubuntu'
+
+- name: Setup WP CLI
+  import_tasks: wp_cli_setup.yml
+  when: ansible_facts['distribution'] | lower == 'ubuntu'
