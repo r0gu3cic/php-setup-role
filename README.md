@@ -29,20 +29,6 @@ These variables can be defined in the playbook or in a `vars` file.
 
 This role has no dependencies on other roles.
 
-## Example Playbook
-
-------------
-
-```yaml
-- hosts: servers
-  become: yes
-  vars:
-    php:
-      version: 8.1
-  roles:
-    - role: your_username.role_name
-```
-
 ## License
 
 ------------
