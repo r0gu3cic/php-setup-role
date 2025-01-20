@@ -21,7 +21,7 @@
   apt: 
     name: "php{{php.version}}-fpm"
     state: present
-- name: Install additional PHP modules # Zou probably want to add some modules
+- name: Install additional PHP modules # You probably want to add some modules
   apt: 
     name: "{{item}}"
     state: present
