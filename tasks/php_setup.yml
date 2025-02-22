@@ -52,3 +52,11 @@
     enabled: yes
   loop: 
     - "php{{php.version}}-fpm"
+
+# Make sure that additionally installed apache2 service is disabled to avoid conflict with other webserver
+- name: Stop and disable apache2 service
+  ansible.builtin.systemd:
+    name: apache2
+    state: stopped
+    enabled: no
+  ignore_errors: true
