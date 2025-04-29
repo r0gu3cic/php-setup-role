@@ -1,6 +1,6 @@
 galaxy_info:
   author: enabler
-  description: Initial server setup role
+  description: PHP setup role
   company: enabler
   license: MIT
   min_ansible_version: 2.10.8
